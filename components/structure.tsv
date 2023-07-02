@@ -1,7 +1,7 @@
 name	time	shared
 qrcodes	0	0
 calibrate	0	0
-motion_sig	20	0
-outpaint	50	0
-rollercoaster	60	0
-finale	7	1
+motion_sig	15	0
+outpaint	15	0
+rollercoaster	15	0
+finale	5	1
