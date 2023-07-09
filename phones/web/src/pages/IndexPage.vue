@@ -1,5 +1,19 @@
 <template>
   <div class="outer">
+
+    <div class="beginOuter" :style="{ 'display': impStore.streamActive ? 'none' : 'block' }">
+      <div class="beginInner">
+        <div class="beginInner1" :style="{ 'display': started ? 'none' : 'block' }">
+          <button class="begin" @click="allowAccess()">BEGIN</button>
+          <p>Please allow access to motion sensor if asked.</p>
+        </div>
+        <div class="beginInner2" :style="{ 'display': started ? 'block' : 'none' }">
+          <p>Awaiting sensor stream...</p>
+        </div>
+      </div>
+    </div>
+    <div class="recalib">&nbsp;</div>
+
     <div class="signal" :style="{opacity: Math.abs(Math.sin(impStore.streamPhase))}"></div>
    
       <div class="button">
@@ -17,7 +31,7 @@ import { useImpStore } from '../stores/imp-store.js'
 import WS from '../services/ws'
 import { useQuasar } from 'quasar'
 import { useRouter, useRoute } from 'vue-router'
-import { watch, defineComponent } from 'vue'
+import { ref, watch, defineComponent } from 'vue'
 
 
 import sensorData from '../services/getSensorData'
@@ -34,7 +48,7 @@ export default defineComponent({
    
     const impStore = useImpStore()
     
-
+    const started = ref(false);
 
 
     WS.setStore(impStore)
@@ -58,24 +72,10 @@ export default defineComponent({
 
 
     const allowAccess = function() {
-      $q.dialog({
-        title: 'Welcome.',
-        message: 'Please tap OK and allow sensor access to begin.',
-        cancel: true,
-        persistent: true
-      }).onOk(() => {
-        // console.log('>>>> OK')
-        requestSensorData()
-
-      }).onCancel(() => {
-        // console.log('>>>> Cancel')
-        exit()
-      }).onDismiss(() => {
-        // console.log('I am triggered on both OK and Cancel')
-      })
+        started.value = 1;
+        requestSensorData();
     }
 
-    allowAccess()
 
 
     const confirmReplay  = function() {
@@ -91,7 +91,8 @@ export default defineComponent({
 
       }).onCancel(() => {
         // console.log('>>>> Cancel')
-        location.href="thanks.html"
+        
+        r.replace('/thanks')
       }).onDismiss(() => {
         // console.log('I am triggered on both OK and Cancel')
       })
@@ -99,12 +100,17 @@ export default defineComponent({
 
     document.addEventListener('touchstart', function(e) {
       if(e.target.classList.contains('button') && impStore.streamActive) {
+      
         btnState(1)
+      } else if (e.target.classList.contains('recalib') && impStore.streamActive) {
+      
+        recalibState(1)
       }
     })
     
     document.addEventListener('touchend', function(e) {
       btnState(0)
+      recalibState(0)
     })
     
     
@@ -139,8 +145,14 @@ export default defineComponent({
       WS.wsm({ btn: impStore.btn });
       
     }
+    const recalibState = function(val) {
+      impStore.recalib = val;
+      console.log('sending recalib', impStore.recalib);
+      WS.wsm({ recalib: impStore.recalib });
+      
+    }
     
-    const rObj = { impStore, confirmReplay, exit, r, requestSensorData, btnState }
+    const rObj = { recalibState, allowAccess, started, impStore, confirmReplay, exit, r, requestSensorData, btnState }
     return rObj
   }
 })
@@ -151,7 +163,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  
+  body {
+    user-select: none;
+    background-color:black;
+  }
   .signal {
     position: fixed;
     top:0;
@@ -168,6 +183,40 @@ export default defineComponent({
     bottom:0;
     background-color:black;
   }
+  .status, .signal, .button {
+    user-select: none;
+  }
+
+
+  .beginOuter {
+    position: fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    z-index:10000;
+    background-color:#ffeeff;
+  }
+
+  .beginInner {
+
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align:center
+
+  }
+
+  .recalib {
+    position:absolute;
+    width:50px;
+    height:50px;
+    background-color:yellow;
+    border-radius:50%;
+    right:-25px;
+    top:-25px;
+  }
+
   .button {
 
     position: relative;

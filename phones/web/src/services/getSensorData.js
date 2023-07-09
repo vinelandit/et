@@ -42,9 +42,9 @@ const sensorData = {
         alpha: null,
         beta: null,
         gamma: null,
-        accelX: 0,
-        accelY: 0,
-        accelZ: 0,
+        // accelX: 0,
+        // accelY: 0,
+        // accelZ: 0,
         btn: null
     },
 
@@ -76,13 +76,15 @@ const sensorData = {
                     gamma: Math.random() * 5
                 });
 
-                _this.motionHandler({
+                /* _this.motionHandler({
                     acceleration: {
                         x: Math.random() * 3,
                         y: Math.random() * 3,
                         z: Math.random() * 3,
                     }
                 });
+                */
+
             }, 16);
         } else {
             console.log('Registering motion- and orientation-capturing event handlers...');
@@ -126,6 +128,7 @@ const sensorData = {
                 
             }
 
+            /* 
             if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function") {
                 console.log('requesting device motion permission');
                 DeviceMotionEvent.requestPermission().then( response => {
@@ -159,6 +162,7 @@ const sensorData = {
                 }
                 
             }
+            */
             
         }
 
@@ -171,6 +175,7 @@ const sensorData = {
         const t = Date.now();
         if(t - this.lastSend > this.frequency) {
             this.state.btn = impStore.btn;
+            this.state.recalib = impStore.recalib;
 
             this.ws.wsm( this.state );
             this.lastSend = t;

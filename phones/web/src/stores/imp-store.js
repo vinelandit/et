@@ -10,6 +10,7 @@ export const useImpStore = defineStore('impStore', {
     pid: -1,
     phash: -1,
     btn: 0,
+    recalib: 0,
     done: false,
     asInc: 0.05,
     streamPhase: 0,

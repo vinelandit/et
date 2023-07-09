@@ -11,9 +11,9 @@ urlsRemote = [
 ]
 
 urlsLocal = [
-'https://imp-0-100.ray.scot/#/?pid=1&phash=7616',
-'https://imp-0-100.ray.scot/#/?pid=2&phash=15227',
-'https://imp-0-100.ray.scot/#/?pid=3&phash=22838'
+'https://imp-0-100.ray.scot:443/#/?pid=1&phash=7616',
+'https://imp-0-100.ray.scot:443/#/?pid=2&phash=15227',
+'https://imp-0-100.ray.scot:443/#/?pid=3&phash=22838'
 ]
 
 
