@@ -1,0 +1,16 @@
+Start generative 
+ch1n99
+
+
+
+start composition
+ch1n100
+
+crossfade
+ch1c101
+
+Stop All
+ch127
+
+
+play_Audio_AIA_Syncing ch4n50
