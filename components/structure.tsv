@@ -1,13 +1,8 @@
-name	time	shared	
-qrcodes	0	0	
-calibrate	0	0	
-motion_sig	1005		
-outpaint	500	0	
-stepsequencer	1005	0	
-rollercoaster	500	0	
-syncing	5	0	0
-throughpainting	1005	0	
-uppainting	1005	0	
-spatialgallery	1005	0	
-outpaint	15	0	
-finale	5	1	
+name	time	shared
+qrcodes	0	0
+calibrate	0	0
+motion_sig	1005	0
+stepsequencer	1005	0
+throughpainting	1005	0
+spatialgallery	1005	0
+finale	50	1

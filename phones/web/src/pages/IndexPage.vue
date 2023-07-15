@@ -1,5 +1,6 @@
 <template>
   <div class="outer">
+    <div class="logoHolder"><img src="/img/logo.png" /></div>
 
     <div class="beginOuter" :style="{ 'display': impStore.streamActive ? 'none' : 'block' }">
       <div class="beginInner">
@@ -16,7 +17,7 @@
 
     <div class="signal" :style="{opacity: Math.abs(Math.sin(impStore.streamPhase))}"></div>
    
-      <div class="button">
+      <div class="button" :class="impStore.btn > 0 ? 'down' : ''">
       </div>
   
 
@@ -167,13 +168,34 @@ export default defineComponent({
     user-select: none;
     background-color:black;
   }
+  .logoHolder img {
+  display:block;
+  margin:0 auto;
+  width:50px;
+  margin-top:30px;
+  position:relative;
+  z-index:10000;
+  pointer-events:none;
+    animation: rotation 16s infinite linear;
+    }
+
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
   .signal {
     position: fixed;
     top:0;
     left:0;
     right:0;
     height: 4px;
-    background-color:red;
+    background-color:rgba(0, 0, 127, 1);
   }
   .outer {
     position: fixed;
@@ -181,12 +203,23 @@ export default defineComponent({
     right:0;
     top:0;
     bottom:0;
-    background-color:black;
+    background: rgb(0,0,90);
+    background: linear-gradient(0deg, rgba(0,0,45,1) 0%, rgba(0,0,9,1) 100%);
   }
   .status, .signal, .button {
     user-select: none;
   }
-
+  button {
+  background:transparent;
+  border:1px solid white;
+  border-radius:5px;
+    font-size:35px;
+    padding:10px;
+    padding-left:40px;
+    padding-right:40px;
+    color:white;
+    font-weight:100;
+  }
 
   .beginOuter {
     position: fixed;
@@ -194,24 +227,33 @@ export default defineComponent({
     right:0;
     top:0;
     bottom:0;
-    z-index:10000;
-    background-color:#ffeeff;
+    z-index:100;
+    background: rgb(0,0,90);
+    background: linear-gradient(0deg, rgba(0,0,45,1) 0%, rgba(0,0,9,1) 100%);
   }
 
   .beginInner {
 
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align:center
-
+    position: absolute;
+    bottom:10px;
+    width:100%;
+    text-align:center;
+    color:white;
+  }
+  .beginInner p {
+    padding:0;
+    margin:0;
+    font-size:18px;
+    padding:20px;
+    padding-top:23px;
+    line-height:1.2;
   }
 
   .recalib {
     position:absolute;
     width:50px;
     height:50px;
-    background-color:yellow;
+    background-color:white;
     border-radius:50%;
     right:-25px;
     top:-25px;
@@ -219,16 +261,22 @@ export default defineComponent({
 
   .button {
 
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    position: absolute;
+    
     width:90%;
-    height:0;
-    padding-bottom:90%;
-    background-color:purple;
+    left:5%;
+    bottom:75px;
+    top:120px;
+    border:1px solid white;
+    border-radius:2px;
 
-    border-radius: 50%;
+    border-radius: 5px;
     margin: 0 auto;
+  }
+
+  .button.down {
+    background-color:rgba(255,255,255, 0.3);
+
   }
   .status {
 

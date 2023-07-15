@@ -1,8 +1,7 @@
 <template>
   <div class="outer">
-    
-   <h2 style="color:yellow; text-align:center">THANKS!</h2>
-   <div class="status" @click="WS.send('text')">{{ impStore.status }}</div>
+    <div class="logoHolder"><img src="/img/logo.png" /></div>
+   <h2>Thank you for participating.</h2>
 
   </div>
 </template>
@@ -30,7 +29,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  
+  h2 {
+  position:absolute;
+  color:white;
+  font-size:20px;
+  padding:20px;
+  text-align:center;
+  margin:0;
+  width:100%;
+  bottom:10px;
+  }
   .signal {
     position: fixed;
     top:0;
@@ -45,7 +53,8 @@ export default defineComponent({
     right:0;
     top:0;
     bottom:0;
-    background-color:black;
+    background: rgb(0,0,90);
+    background: linear-gradient(0deg, rgba(0,0,45,1) 0%, rgba(0,0,9,1) 100%);
   }
   .button {
 
