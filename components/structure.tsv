@@ -1,8 +1,9 @@
 name	time	shared
 qrcodes	0	0
 calibrate	0	0
-motion_sig	1005	0
-stepsequencer	1005	0
-throughpainting	1005	0
-spatialgallery	1005	0
-finale	50	1
+motion_sig	50	0
+stepsequencer	65	0
+spatialgallery	80	0
+throughpainting	110	0
+finale	150	1
+waterboarding	120	0

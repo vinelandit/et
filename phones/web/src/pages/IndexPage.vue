@@ -18,6 +18,7 @@
     <div class="signal" :style="{opacity: Math.abs(Math.sin(impStore.streamPhase))}"></div>
    
       <div class="button" :class="impStore.btn > 0 ? 'down' : ''">
+        <div class="tap">TAP</div>
       </div>
   
 
@@ -100,7 +101,7 @@ export default defineComponent({
     }
 
     document.addEventListener('touchstart', function(e) {
-      if(e.target.classList.contains('button') && impStore.streamActive) {
+      if((e.target.classList.contains('button') || e.target.classList.contains('tap')) && impStore.streamActive) {
       
         btnState(1)
       } else if (e.target.classList.contains('recalib') && impStore.streamActive) {
@@ -128,7 +129,8 @@ export default defineComponent({
     }
 
     if($q.cookies.has('already_played')) {
-      confirmReplay()
+      // confirmReplay()
+      WS.connect()
     } else {
       WS.connect()
     }
@@ -167,6 +169,15 @@ export default defineComponent({
   body {
     user-select: none;
     background-color:black;
+  }
+  .tap {
+  pointer-events:none;
+    position: relative;
+  top: 50%;
+  color:rgba(255, 255, 255, 0.5);
+  transform: translateY(-50%);
+  font-size:50px;
+  text-align:center;
   }
   .logoHolder img {
   display:block;
