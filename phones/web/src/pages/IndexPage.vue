@@ -51,7 +51,7 @@ export default defineComponent({
     const impStore = useImpStore()
     
     const started = ref(false);
-
+    const fs = ref(false);
 
     WS.setStore(impStore)
     const r = useRouter()
@@ -101,6 +101,17 @@ export default defineComponent({
     }
 
     document.addEventListener('touchstart', function(e) {
+      if(!fs.value && document.documentElement.requestFullScreen) {
+        document.documentElement
+          .requestFullscreen()
+          .then(() => {
+              fs.value = true; }
+          )
+          .catch(error => {
+               
+          });
+        
+      }
       if((e.target.classList.contains('button') || e.target.classList.contains('tap')) && impStore.streamActive) {
       
         btnState(1)
@@ -155,7 +166,7 @@ export default defineComponent({
       
     }
     
-    const rObj = { recalibState, allowAccess, started, impStore, confirmReplay, exit, r, requestSensorData, btnState }
+    const rObj = { fs, recalibState, allowAccess, started, impStore, confirmReplay, exit, r, requestSensorData, btnState }
     return rObj
   }
 })
